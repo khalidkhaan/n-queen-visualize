@@ -55,10 +55,10 @@ def draw_chessboard(chromosome):
     ax.set_title(f"{str(chromosome)}\nFitness: {max_clash - total_clashes}", fontsize=14)
     return fig
 
-st.title("Dynamic N-Queens Clash Visualizer")
+st.title("N-Queens Clash Visualizer")
 
-# Horizontal layout: input and button side-by-side
-col1, col2 = st.columns([4, 1])  # Wider input, smaller button
+
+col1, col2 = st.columns([4, 1])
 
 with col1:
     user_input = st.text_input("Enter Chromosome", value="1,2,6,0,7,5,3,4", label_visibility="collapsed")
@@ -67,7 +67,6 @@ with col2:
     generate = st.button("Generate")
 
 
-# Run this block if the user presses Enter or clicks the button
 if user_input and generate:
     try:
         chromosome = list(map(int, user_input.strip().split(',')))
@@ -77,6 +76,17 @@ if user_input and generate:
             st.error(f"Each value must be between 0 and {board_size - 1}")
         else:
             fig = draw_chessboard(chromosome)
-            st.pyplot(fig)
+            col1, col2, col3 = st.columns([0.5, 3, 0.5])
+            with col2:
+                st.pyplot(fig)
+
     except ValueError:
         st.error("Invalid input! Please enter N comma-separated integers.")
+
+st.markdown("---")
+st.markdown(
+    "<div style='text-align: center; font-size: 13px;'>"
+    "Created by <strong>Md. Khaliduzzaman Khan - KKS</strong>"
+    "</div>",
+    unsafe_allow_html=True
+)
